@@ -1,0 +1,27 @@
+$font-weights: (
+  "Thin"      : 100,
+  "ExtraLight": 200,
+  "Light"     : 300,
+  "Regular"   : 400,
+  "Medium"    : 500,
+  "SemiBold"  : 600,
+  "Bold"      : 700,
+  "ExtraBold" : 800,
+  "Black"     : 900
+);
+
+@each $weight-name, $weight-score in $font-weights {
+  @font-face {
+    font-family: "Barlow Condensed";
+    src: url("src/assets/fonts/barlow-condensed/BarlowCondensed-#{$weight-name}.ttf");
+    font-style: normal;
+    font-weight: #{$weight-score};
+  }
+
+  @font-face {
+    font-family: "Barlow Condensed";
+    src: url("src/assets/fonts/barlow-condensed/BarlowCondensed-#{$weight-name}Italic.ttf");
+    font-style: italic;
+    font-weight: #{$weight-score};
+  }
+}
