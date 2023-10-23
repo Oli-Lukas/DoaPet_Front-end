@@ -5,7 +5,9 @@ div.login-page
   width: 100vw;
   height: 100vh;
 
-  background-image: url("src/assets/images/login-page/background-pattern.jpg");
+  background-image:
+    linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)),
+    url("src/assets/images/login-page/background-pattern.jpg");
   background-position: center;
   background-size: cover;
 
@@ -15,78 +17,89 @@ div.login-page
 
   div.login-container
   {
-    width: 600px;
-    height: 500px;
-
-    background-color: map-get($colors, "Clouds");
-    box-shadow: 4px 4px 15px 1px rgba(0, 0, 0, .35), -4px -4px 15px 1px rgba(0, 0, 0, .35);
+    width: 400px;
+    padding: 20px 10px;
 
     border-radius: 4px;
-
+    background-color: map-get($colors, "Clouds");
+    box-shadow:
+      4px 4px 10px rgba(0, 0, 0, .25),
+      -4px -4px 10px rgba(0, 0, 0, .25);
+    
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    img.ufpe-logo
+    h2.brand-title
     {
-      margin-top: 15px;
-      // width: 300px;
-      height: 150px;
+      font-family: "Kameron";
+      font-weight: bold;
     }
 
-    h2.login-title
+    img.login-icon
     {
-      margin-top: 25px;
-      font-weight: 600;
+      margin-top: 15px;
+      width: 250px;
     }
 
     form
     {
       display: flex;
       flex-direction: column;
-      align-items: center;
 
       input[type=text], input[type=password]
       {
-        width: 400px;
-        padding: 8px 20px;
-  
-        font-family: sans-serif;
+        width: 250px;
+        padding: 10px 15px;
+        font-family: "Roboto Slab";
         font-weight: 500;
-        font-size: 1.05rem;
-  
         border: 1px solid map-get($colors, "Silver");
+        box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
         border-radius: 4px;
       }
-  
-      input.login
-      { margin-top: 30px; }
-  
-      input.password
-      { margin-top: 15px; }
-  
-      button
+
+      input[type=submit]
       {
-        background-color: map-get($colors, "Iceland-Poppy");
-        color: map-get($colors, "Clouds");
-  
-        margin-top: 30px;
-        width: 300px;
-        height: 50px;
-  
-        font-family: sans-serif;
-        font-weight: 500;
-        font-size: 1.2rem;
-  
+        padding: 10px;
+        background-color: map-get($colors, "Mandarim-Sobert");
         border: none;
+        font-family: "Roboto Slab";
+        font-weight: 500;
+        color: map-get($colors, "Clouds");
+        box-shadow: 0 4px 10px rgba(0, 0, 0, .25);
         border-radius: 4px;
         cursor: pointer;
-  
+
         &:hover
         {
-          transition: .3s ease-in-out all;
-          background-color: adjust-color(map-get($colors, "Iceland-Poppy"), $blackness: 5%);
+          transition: .35s ease-in-out all;
+          background-color: adjust-color(map-get($colors, "Mandarim-Sobert"), $blackness: 5%);
           color: adjust-color(map-get($colors, "Clouds"), $lightness: 5%);
+        }
+      }
+
+      input
+      { margin-top: 10px; }
+    }
+
+    p.text {
+      width: 250px;
+      font-family: "Roboto Slab";
+      font-size: 0.75rem;
+      text-align: justify;
+
+      &.first
+      {
+        margin-top: 10px;
+      }
+      
+      a {
+        color: map-get($colors, "Dark-Periwinkle");
+
+        &:hover
+        {
+          text-decoration: underline;
+          cursor: pointer;
         }
       }
     }

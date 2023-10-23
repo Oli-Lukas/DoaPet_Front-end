@@ -1,44 +1,29 @@
-import { useState, useEffect, useCallback, FormEvent, } from "react";
-import { useNavigate, } from "react-router-dom";
-import { api, } from "../../lib/axios";
 import LoginIcon from "../../assets/images/login-page/login-icon.png";
-
 import "./style.scss";
 
 function Login()
 {
-  const [login, setLogin,] = useState<string>("",);
-  const [password, setPassword,] = useState<string>("",);
-
-  async function makeLogin(event: FormEvent<HTMLFormElement | EventTarget>,)
-  {
-  }
-
   return (
     <div className="login-page">
       <div className="login-container">
-        <img className="ufpe-logo" src={LoginIcon} />
-
-        <h2 className="login-title">DoaPet</h2>
+        <h2 className="brand-title">DoaPet</h2>
+        <img className="login-icon" src={LoginIcon} title="" />
 
         <form>
-          <input
-            className="login"
-            type="text"
-            placeholder="Login"
-            value={login}
-            onChange={(e,) => setLogin(e.target.value,)}
-          />
-          <input
-            className="password"
-            type="password"
-            placeholder="Senha"
-            value={password}
-            onChange={(e,) => setPassword(e.target.value,)}
-          />
+          <input className="login" type="text" placeholder="Login"/>
+          <input className="password" type="password" placeholder="Senha"/>
 
-          <button className="login-button" type="submit" onClick={makeLogin}>Efetuar Login</button>
+          <input type="submit" value="Entrar" />
         </form>
+
+        <p className="text first">
+          Não possui uma conta? <a>Clique aqui</a> para se
+          juntar conosco.
+        </p>
+        <p className="text">
+          Caso queira cadastrar sua ONG <a>clique aqui</a>.
+        </p>
+
       </div>
     </div>
   );
