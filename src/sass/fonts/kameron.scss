@@ -1,0 +1,15 @@
+$font-weights: (
+  "Regular"   : 400,
+  "Medium"    : 500,
+  "SemiBold"  : 600,
+  "Bold"      : 700,
+);
+
+@each $weight-name, $weight-score in $font-weights {
+  @font-face {
+    font-family: "Kameron";
+    src: url("src/assets/fonts/kameron/Kameron-#{$weight-name}.ttf");
+    font-style: normal;
+    font-weight: #{$weight-score};
+  }
+}
