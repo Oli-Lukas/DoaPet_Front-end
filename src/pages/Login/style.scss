@@ -95,10 +95,11 @@ div.login-page
       
       a {
         color: map-get($colors, "Dark-Periwinkle");
+        text-decoration-line: none;
 
         &:hover
         {
-          text-decoration: underline;
+          text-decoration-line: underline;
           cursor: pointer;
         }
       }
