@@ -1,0 +1,170 @@
+@use "../../sass/colors.scss" as *;
+
+div.user-signup-page
+{
+  width: 100vw;
+  height: 100vh;
+
+  background-image:
+    linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)),
+    url("src/assets/images/user-signup-page/background-pattern.jpg");
+  background-position: center;
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div.signup-area
+  {
+    width: 1000px;
+    height: 800px;
+
+    border-radius: 4px;
+    background-color: map-get($colors, "Clouds");
+    box-shadow:
+       4px  4px 10px rgba(0, 0, 0, .25),
+      -4px -4px 10px rgba(0, 0, 0, .25);
+    
+    display: grid;
+    grid-template-columns: repeat(2, 500px);
+
+    div.signup-image-area
+    {
+      background-image:
+        linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)),
+        url("src/assets/images/user-signup-page/pets.jpg");
+      background-position: center;
+      background-size: cover;
+      
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+
+      button.back
+      {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+    }
+
+    div.signup-form-area
+    {
+      padding: 50px 25px;
+
+      display: flex;
+      flex-direction: column;
+
+      h2.title
+      {
+        font-family: "Kameron";
+        text-align: center;
+      }
+
+      p
+      {
+        font-family: "Roboto Slab";
+        color: map-get($colors, "Asbestos");
+
+        &:nth-of-type(2)
+        {
+          color: #000;
+          margin-bottom: 10px;
+        }
+      }
+
+      form
+      {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+
+        label
+        { font-family: "Roboto Slab"; }
+
+        input[type=text],
+        input[type=email],
+        input[type=password],
+        select
+        {
+          width: 100%;
+          border: none;
+          border-bottom: 1px solid map-get($colors, "Asbestos");
+          background-color: transparent;
+          outline: none;
+          font-family: "Roboto Slab";
+          font-size: .95rem;
+
+          &:focus, &:focus-visible
+          { border-bottom: 2px solid map-get($colors, "Asbestos"); }
+        }
+
+        input[type=text],
+        input[type=email]
+        { padding: 10px 2px 2px; }
+
+        select
+        {
+          padding: 10px 0 2px;
+          
+          option[disabled]
+          { color: map-get($colors, "Asbestos"); }
+        }
+
+        input[type=date]
+        {
+          margin-top: 5px;
+          width: 100px;
+          padding: 8px 4px;
+        }
+
+        div.input-group
+        {
+          display: flex;
+          flex-direction: column;
+          row-gap: 10px;
+
+          div.inline-input
+          {
+            margin-top: 5px;
+            display: flex;
+            column-gap: 35px;
+          }
+
+          select
+          {
+            width: 100%;
+          }
+        }
+
+        button[type=submit]
+        {
+          margin-top: 1rem;
+          padding: 10px 0;
+
+          cursor: pointer;
+          color: map-get($colors, "Clouds");
+          background-color: map-get($colors, "Mandarim-Sobert");
+
+          border: none;
+          border-radius: 4px;
+
+          font-family: "Roboto Slab";
+          font-size: .95rem;
+
+          box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+
+          &:hover
+          {
+            background-color: adjust-color(map-get($colors, "Mandarim-Sobert"), $blackness: 5%);
+            color: adjust-color(map-get($colors, "Clouds"), $lightness: 5%);
+            transition: .35s ease-in-out all;
+          }
+        }
+      }
+    }
+  }
+}
