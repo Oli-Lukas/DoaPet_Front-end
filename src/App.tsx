@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import HomePage from "./pages/Home";
 
 import "./App.scss";
+import UserSignup from "./pages/UserSignup";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: "/user-signup",
+    element: <UserSignup />
   },
   {
     path: "/home",
