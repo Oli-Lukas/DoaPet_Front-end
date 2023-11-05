@@ -3,7 +3,8 @@
 div.ong-signup-page
 {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  padding: 25px 0;
 
   background-image:
     linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)),
@@ -18,7 +19,6 @@ div.ong-signup-page
   div.signup-area
   {
     width: 1000px;
-    height: 800px;
 
     border-radius: 4px;
     background-color: map-get($colors, "Clouds");
