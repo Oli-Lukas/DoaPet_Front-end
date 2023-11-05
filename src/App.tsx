@@ -5,6 +5,7 @@ import HomePage from "./pages/Home";
 
 import "./App.scss";
 import UserSignup from "./pages/UserSignup";
+import OngSignup from "./pages/OngSignup";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/user-signup",
     element: <UserSignup />
+  },
+  {
+    path: "/ong-signup",
+    element: <OngSignup />
   },
   {
     path: "/home",
