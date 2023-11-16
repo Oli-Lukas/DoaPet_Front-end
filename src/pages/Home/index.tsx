@@ -12,11 +12,11 @@ function HomePage()
         </a>
 
         <ul className="menu-list">
-          <li><a className="" href="#">Solicitações de Adoção</a></li>
-          <li><a className="" href="#">ONGs</a></li>
-          <li><a className="active" href="#">Banco de Adoção</a></li>
-          <li><a className="" href="#">Minha Conta</a></li>
-          <li><a className="" href="#">Sair</a></li>
+          <li><button className="" type="button">Solicitações de Adoção</button></li>
+          <li><button className="" type="button">ONGs</button></li>
+          <li><button className="active" type="button">Banco de Adoção</button></li>
+          <li><button className="" type="button">Minha Conta</button></li>
+          <li><button className="" type="button">Sair</button></li>
         </ul>
       </nav>
 
