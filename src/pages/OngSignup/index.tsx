@@ -13,8 +13,8 @@ function OngSignup()
   const navigator = useNavigate();
 
   const [formResponses, setFormResponses] = useState<FormResponse>(emptyFormResponse);
-  const [ibgeStates   , setIbgeStates   ] = useState<IbgeStatesResponseObject[]>();
-  const [ibgeCities   , setIbgeCities   ] = useState<IbgeCitiesResponseObject[]>();
+  const [ibgeStates   , setIbgeStates   ] = useState<IbgeStatesResponseObject[]>([]);
+  const [ibgeCities   , setIbgeCities   ] = useState<IbgeCitiesResponseObject[]>([]);
 
   function updateFormResponses(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>)
   {
@@ -61,7 +61,7 @@ function OngSignup()
   function loadCitiesFromIbgeApi()
   {
     const loadDataFromIbgeApi = async () => {
-      const ibgeStateAcronym = ibgeStates?.filter((ibgeState) => ibgeState.nome === formResponses.state)[0]?.sigla ?? undefined;
+      const ibgeStateAcronym = ibgeStates.filter((ibgeState) => ibgeState.nome === formResponses.state)[0].sigla;
       const response = await IbgeApi.get(`/localidades/estados/${ibgeStateAcronym}/municipios`);
       setIbgeCities(response.data);
     }
