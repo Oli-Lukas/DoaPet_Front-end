@@ -59,11 +59,13 @@ function UserSignup()
   {
     event.preventDefault();
 
+    const ufSigla = ufs?.filter((uf) => uf.nome === estado)[0].sigla;
+
     const response = await api.post("/auth/cadastro", {
       nome: fullname,
       email,
       senha: password,
-      endereco: estado +", "+ cidade +", "+ bairro +", "+ logradouro,
+      endereco: ufSigla +", "+ cidade +", "+ bairro +", "+ logradouro,
       tipoUsuario: "INDIVIDUAL"
     });
 
