@@ -1,26 +1,22 @@
-import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {v4 as uuid4} from "uuid";
 
-import { FormResponse, emptyFormResponse, IbgeStatesResponseObject, IbgeCitiesResponseObject } from './types';
+import useForm from './useForm';
+import { IbgeStatesResponseObject, IbgeCitiesResponseObject } from './types';
 import { IbgeApi, api } from '../../lib/axios';
-import arrowLeft from '../../assets/images/ong-signup-page/arrow-left.png';
 
+import arrowLeft from '../../assets/images/ong-signup-page/arrow-left.png';
 import "./style.scss";
 
 function OngSignup()
 {
   const navigator = useNavigate();
 
-  const [formResponses, setFormResponses] = useState<FormResponse>(emptyFormResponse);
-  const [ibgeStates   , setIbgeStates   ] = useState<IbgeStatesResponseObject[]>([]);
-  const [ibgeCities   , setIbgeCities   ] = useState<IbgeCitiesResponseObject[]>([]);
+  const { formResponses, updateFormResponses, resetFormResponses } = useForm();
+  const [ibgeStates, setIbgeStates] = useState<IbgeStatesResponseObject[]>([]);
+  const [ibgeCities, setIbgeCities] = useState<IbgeCitiesResponseObject[]>([]);
 
-  function updateFormResponses(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>)
-  {
-    const { name, value } = event.target;
-    setFormResponses((previousState) => ({ ...previousState, [name]: value }));
-  }
 
   async function makeOngSignup(event: FormEvent<HTMLFormElement | EventTarget>)
   {
@@ -39,7 +35,7 @@ function OngSignup()
     if (response.status === 200)
     {
       console.log("Cadastro realizado com sucesso!");
-      setFormResponses(emptyFormResponse);
+      resetFormResponses();
     }
     else
     {
