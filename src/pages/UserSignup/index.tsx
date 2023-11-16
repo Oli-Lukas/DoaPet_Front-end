@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuid4 } from "uuid";
 
 import { IbgeApi, api } from "../../lib/axios";
-import { FormResponse, IbgeCityResponseObject, IbgeUfResponseObject, emptyFormResponse } from "./types";
+import { FormResponse, IbgeCitiesResponseObject, IbgeStatesResponseObject, emptyFormResponse } from "./types";
 
 import arrowLeft from "../../assets/images/user-signup-page/arrow-left.png";
 import "./style.scss";
@@ -13,6 +13,8 @@ function UserSignup()
   const navigator = useNavigate();
 
   const [formResponses, setFormResponses] = useState<FormResponse>(emptyFormResponse);
+  const [ibgeStates   , setIbgeStates   ] = useState<IbgeStatesResponseObject[]>();
+  const [ibgeCities   , setIbgeCities   ] = useState<IbgeCitiesResponseObject[]>();
 
   function updateFormResponses(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>)
   {
@@ -24,13 +26,13 @@ function UserSignup()
   {
     event.preventDefault();
 
-    const ufSigla = ufs?.filter((uf) => uf.nome === formResponses.state)[0].sigla;
+    const stateAcronym = ibgeStates?.filter((ibgeState) => ibgeState.nome === formResponses.state)[0].sigla;
 
     const response = await api.post("/auth/cadastro", {
       nome       : formResponses.fullname,
       email      : formResponses.email,
       senha      : formResponses.password,
-      endereco   : ufSigla +", "+ formResponses.city +", "+ formResponses.neighborhood +", "+ formResponses.publicPlace,
+      endereco   : stateAcronym +", "+ formResponses.city +", "+ formResponses.neighborhood +", "+ formResponses.publicPlace,
       tipoUsuario: "INDIVIDUAL"
     });
 
@@ -45,35 +47,32 @@ function UserSignup()
     }
   }
 
-  const [ufs   , setUfs   ] = useState<IbgeUfResponseObject[]>();
-  const [cities, setCities] = useState<IbgeCityResponseObject[]>();
-
-  function loadUfs()
+  function loadStatesFromIbgeApi()
   {
     const loadDataFromIbgeApi = async () => {
       const response = await IbgeApi.get("/localidades/estados");
-      setUfs(response.data);
+      setIbgeStates(response.data);
     }
 
     loadDataFromIbgeApi()
       .catch(console.error);
   }
 
-  function loadCities()
+  function loadCitiesFromIbgeApi()
   {
     const loadDataFromIbgeApi = async () => {
 
-      const ufSigla  = ufs?.filter((uf) => uf.nome === formResponses.state)[0]?.sigla ?? undefined;
-      const response = await IbgeApi.get(`/localidades/estados/${ufSigla}/municipios`);
-      setCities(response.data);
+      const ibgeStateAcronym = ibgeStates?.filter((ibgeState) => ibgeState.nome === formResponses.state)[0]?.sigla ?? undefined;
+      const response = await IbgeApi.get(`/localidades/estados/${ibgeStateAcronym}/municipios`);
+      setIbgeCities(response.data);
     }
 
     loadDataFromIbgeApi()
       .catch(console.error);
   }
 
-  useEffect(loadUfs, []);
-  useEffect(loadCities, [formResponses.state, ufs]);
+  useEffect(loadStatesFromIbgeApi, []);
+  useEffect(loadCitiesFromIbgeApi, [formResponses.state, ibgeStates]);
 
   return (
     <div className="user-signup-page">
@@ -135,14 +134,14 @@ function UserSignup()
 
                   {
                     formResponses.state ? (
-                      ufs?.map((uf) => {
-                        if (uf.nome === formResponses.state) return <option key={uuid4()} value={uf.nome} selected >{uf.nome}</option>
-                        else                                 return <option key={uuid4()} value={uf.nome}>{uf.nome}</option>
+                      ibgeStates?.map((ibgeState) => {
+                        if (ibgeState.nome === formResponses.state) return <option key={uuid4()} value={ibgeState.nome} selected >{ibgeState.nome}</option>
+                        else                                        return <option key={uuid4()} value={ibgeState.nome}>{ibgeState.nome}</option>
                       })
                     ) : (
                       <>
                         <option disabled selected>Estado</option>
-                        { ufs?.map((uf) => <option key={uuid4()} value={uf.nome}>{uf.nome}</option>) }
+                        { ibgeStates?.map((ibgeState) => <option key={uuid4()} value={ibgeState.nome}>{ibgeState.nome}</option>) }
                       </>
                     )
                   }
@@ -153,14 +152,14 @@ function UserSignup()
 
                   {
                     formResponses.city ? (
-                      cities?.map((city) => {
-                        if (city.nome === formResponses.city) return <option key={uuid4()} value={city.nome} selected>{city.nome}</option>
-                        else                                  return <option key={uuid4()} value={city.nome}>{city.nome}</option>
+                      ibgeCities?.map((ibgeCity) => {
+                        if (ibgeCity.nome === formResponses.city) return <option key={uuid4()} value={ibgeCity.nome} selected>{ibgeCity.nome}</option>
+                        else                                      return <option key={uuid4()} value={ibgeCity.nome}>{ibgeCity.nome}</option>
                       })
                     ) : (
                       <>
                         <option disabled selected>Cidade</option>
-                        { cities?.map((city) => <option key={uuid4()} value={city.nome}>{city.nome}</option>) }
+                        { ibgeCities?.map((ibgeCity) => <option key={uuid4()} value={ibgeCity.nome}>{ibgeCity.nome}</option>) }
                       </>
                     )
                   }

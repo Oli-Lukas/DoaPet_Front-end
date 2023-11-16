@@ -1,4 +1,4 @@
-export type IbgeUfResponseObject = {
+export type IbgeStatesResponseObject = {
   id: number;
   sigla: string;
   nome: string;
@@ -9,7 +9,7 @@ export type IbgeUfResponseObject = {
   }
 };
 
-export type IbgeCityResponseObject = {
+export type IbgeCitiesResponseObject = {
   id: number;
   nome: string;
   microrregiao: {
