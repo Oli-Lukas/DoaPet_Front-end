@@ -31,3 +31,27 @@ export type IbgeCityResponseObject = {
     }
   }
 };
+
+export type FormResponse = {
+  fullname: string;
+  email: string;
+  birthDate: string;
+  username: string;
+  state: string;
+  city: string;
+  neighborhood: string;
+  publicPlace: string;
+  password: string;
+}
+
+export const emptyFormResponse: FormResponse = {
+  fullname: "",
+  email: "",
+  birthDate: "",
+  username: "",
+  state: "",
+  city: "",
+  neighborhood: "",
+  publicPlace: "",
+  password: ""
+};

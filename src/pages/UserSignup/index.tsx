@@ -1,9 +1,9 @@
-import { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState, useEffect, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid4 } from "uuid";
 
 import { IbgeApi, api } from "../../lib/axios";
-import { IbgeCityResponseObject, IbgeUfResponseObject } from "./types";
+import { FormResponse, IbgeCityResponseObject, IbgeUfResponseObject, emptyFormResponse } from "./types";
 
 import arrowLeft from "../../assets/images/user-signup-page/arrow-left.png";
 import "./style.scss";
@@ -12,33 +12,32 @@ function UserSignup()
 {
   const navigator = useNavigate();
 
-  const [fullname  , setFullname  ] = useState<string>("");
-  const [email     , setEmail     ] = useState<string>("");
-  const [birthDate , setBirthDate ] = useState<string>("");
-  const [username  , setUsername  ] = useState<string>("");
-  const [estado    , setEstado    ] = useState<string>("");
-  const [cidade    , setCidade    ] = useState<string>("");
-  const [bairro    , setBairro    ] = useState<string>("");
-  const [logradouro, setLogradouro] = useState<string>("");
-  const [password  , setPassword  ] = useState<string>("");
+  const [formResponses, setFormResponses] = useState<FormResponse>(emptyFormResponse);
+
+  function updateFormResponses(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>)
+  {
+    const { name, value } = event.target;
+    setFormResponses((previousState) => ({ ...previousState, [name]: value }));
+  }
 
   async function makeUserSignup(event: FormEvent<HTMLFormElement | EventTarget>)
   {
     event.preventDefault();
 
-    const ufSigla = ufs?.filter((uf) => uf.nome === estado)[0].sigla;
+    const ufSigla = ufs?.filter((uf) => uf.nome === formResponses.state)[0].sigla;
 
     const response = await api.post("/auth/cadastro", {
-      nome: fullname,
-      email,
-      senha: password,
-      endereco: ufSigla +", "+ cidade +", "+ bairro +", "+ logradouro,
+      nome       : formResponses.fullname,
+      email      : formResponses.email,
+      senha      : formResponses.password,
+      endereco   : ufSigla +", "+ formResponses.city +", "+ formResponses.neighborhood +", "+ formResponses.publicPlace,
       tipoUsuario: "INDIVIDUAL"
     });
 
     if (response.status === 200)
     {
       console.log("Cadastro realizado com sucesso!");
+      setFormResponses(emptyFormResponse);
     }
     else
     {
@@ -64,11 +63,9 @@ function UserSignup()
   {
     const loadDataFromIbgeApi = async () => {
 
-      const ufSigla  = ufs?.filter((uf) => uf.nome === estado)[0]?.sigla ?? undefined;
+      const ufSigla  = ufs?.filter((uf) => uf.nome === formResponses.state)[0]?.sigla ?? undefined;
       const response = await IbgeApi.get(`/localidades/estados/${ufSigla}/municipios`);
-
       setCities(response.data);
-      setCidade(response.data[0]?.nome ?? "");
     }
 
     loadDataFromIbgeApi()
@@ -76,7 +73,7 @@ function UserSignup()
   }
 
   useEffect(loadUfs, []);
-  useEffect(loadCities, [estado, ufs]);
+  useEffect(loadCities, [formResponses.state, ufs]);
 
   return (
     <div className="user-signup-page">
@@ -96,20 +93,26 @@ function UserSignup()
           <form action="">
             <input
               type="text"
-              onChange={(event) => setFullname(event.target.value)}
               placeholder="Nome completo"
+              name="fullname"
+              onChange={updateFormResponses}
+              value={formResponses.fullname}
             />
             <input
               type="email"
-              onChange={(event) => setEmail(event.target.value)}
               placeholder="E-mail"
+              name="email"
+              onChange={updateFormResponses}
+              value={formResponses.email}
             />
 
             <div className="input-group">
               <label htmlFor="">Data de Nascimento</label>
               <input
                 type="date"
-                onChange={(event) => setBirthDate(event.target.value)}
+                name="birthDate"
+                onChange={updateFormResponses}
+                value={formResponses.birthDate}
               />
             </div>
 
@@ -117,8 +120,10 @@ function UserSignup()
               <label htmlFor="">Aqui você informa o nome que utilizará para acessar a plataforma</label>
               <input
                 type="text"
-                onChange={(event) => setUsername(event.target.value)}
                 placeholder="Login do usuário"
+                name="username"
+                onChange={updateFormResponses}
+                value={formResponses.username}
               />
             </div>
 
@@ -126,13 +131,13 @@ function UserSignup()
               <label htmlFor="">Dados de Endereço</label>
 
               <div className="inline-input">
-                <select onChange={(event) => { setEstado(event.target.value) }}>
+                <select name="state" onChange={updateFormResponses}>
 
                   {
-                    estado ? (
+                    formResponses.state ? (
                       ufs?.map((uf) => {
-                        if (uf.nome === estado) return <option key={uuid4()} value={uf.nome} selected >{uf.nome}</option>
-                        else                    return <option key={uuid4()} value={uf.nome}>{uf.nome}</option>
+                        if (uf.nome === formResponses.state) return <option key={uuid4()} value={uf.nome} selected >{uf.nome}</option>
+                        else                                 return <option key={uuid4()} value={uf.nome}>{uf.nome}</option>
                       })
                     ) : (
                       <>
@@ -144,13 +149,13 @@ function UserSignup()
 
                 </select>
 
-                <select onChange={(event) => setCidade(event.target.value)}>
+                <select name="city" onChange={updateFormResponses}>
 
                   {
-                    cidade ? (
+                    formResponses.city ? (
                       cities?.map((city) => {
-                        if (city.nome === cidade) return <option key={uuid4()} value={city.nome} selected>{city.nome}</option>
-                        else                      return <option key={uuid4()} value={city.nome}>{city.nome}</option>
+                        if (city.nome === formResponses.city) return <option key={uuid4()} value={city.nome} selected>{city.nome}</option>
+                        else                                  return <option key={uuid4()} value={city.nome}>{city.nome}</option>
                       })
                     ) : (
                       <>
@@ -165,13 +170,17 @@ function UserSignup()
 
               <input
                 type="text"
-                onChange={(event) => setBairro(event.target.value)}
                 placeholder="Bairro"
+                name="neighborhood"
+                onChange={updateFormResponses}
+                value={formResponses.neighborhood}
               />
               <input
                 type="text"
-                onChange={(event) => setLogradouro(event.target.value)}
                 placeholder="Logradouro"
+                name="publicPlace"
+                onChange={updateFormResponses}
+                value={formResponses.publicPlace}
               />
             </div>
 
@@ -179,8 +188,10 @@ function UserSignup()
               <label htmlFor="">Senha do usuário</label>
               <input
                 type="password"
-                onChange={(event) => setPassword(event.target.value)}
                 placeholder="Senha"
+                name="password"
+                onChange={updateFormResponses}
+                value={formResponses.password}
               />
             </div>
 
