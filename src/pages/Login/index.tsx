@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import LoginIcon from "../../assets/images/login-page/login-icon.png";
 import "./style.scss";
@@ -27,6 +27,15 @@ function Login()
       console.log("Erro ao efetuar autenticação!"); 
     }
   }
+
+  function checkToken()
+  {
+    const token = localStorage.getItem("doapet-user-token");
+    if (token)
+      navigator("/home");
+  }
+
+  useEffect(checkToken, [navigator]);
 
   return (
     <div className="login-page">
