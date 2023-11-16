@@ -3,43 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuid4 } from "uuid";
 
 import { IbgeApi, api } from "../../lib/axios";
+import { IbgeCityResponseObject, IbgeUfResponseObject } from "./types";
 
 import arrowLeft from "../../assets/images/user-signup-page/arrow-left.png";
 import "./style.scss";
-
-type IbgeUfResponseObject = {
-  id: number;
-  sigla: string;
-  nome: string;
-  regiao: {
-    id: number;
-    sigla: string;
-    nome: string;
-  }
-};
-
-type IbgeCityResponseObject = {
-  id: number;
-  nome: string;
-  microrregiao: {
-    id: number;
-    nome: string;
-    mesorregiao: {
-      id: number;
-      nome: string;
-      UF: {
-        id: number;
-        sigla: string;
-        nome: string;
-        regiao: {
-          id: number;
-          sigla: string;
-          nome: string;
-        }
-      }
-    }
-  }
-};
 
 function UserSignup()
 {
