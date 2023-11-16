@@ -15,6 +15,12 @@ function HomePage()
       navigator("/login");
   }
 
+  function userLogout()
+  {
+    localStorage.removeItem("doapet-user-token");
+    navigator("/login");
+  }
+
   useEffect(checkToken, [navigator]);
 
   return (
@@ -29,7 +35,7 @@ function HomePage()
           <li><button className="" type="button">ONGs</button></li>
           <li><button className="active" type="button">Banco de Adoção</button></li>
           <li><button className="" type="button">Minha Conta</button></li>
-          <li><button className="" type="button">Sair</button></li>
+          <li><button className="" type="button" onClick={userLogout}>Sair</button></li>
         </ul>
       </nav>
 
