@@ -1,26 +1,22 @@
-import { FormEvent, useState, useEffect, ChangeEvent } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuid4 } from "uuid";
 
 import { IbgeApi, api } from "../../lib/axios";
-import { FormResponse, IbgeCitiesResponseObject, IbgeStatesResponseObject, emptyFormResponse } from "./types";
+import { IbgeCitiesResponseObject, IbgeStatesResponseObject } from "./types";
 
 import arrowLeft from "../../assets/images/user-signup-page/arrow-left.png";
 import "./style.scss";
+import useForm from "./useForm";
 
 function UserSignup()
 {
   const navigator = useNavigate();
 
-  const [formResponses, setFormResponses] = useState<FormResponse>(emptyFormResponse);
+  const { formResponses, updateFormResponses, resetFormResponse } = useForm();
+
   const [ibgeStates   , setIbgeStates   ] = useState<IbgeStatesResponseObject[]>();
   const [ibgeCities   , setIbgeCities   ] = useState<IbgeCitiesResponseObject[]>();
-
-  function updateFormResponses(event: ChangeEvent<HTMLInputElement | HTMLSelectElement>)
-  {
-    const { name, value } = event.target;
-    setFormResponses((previousState) => ({ ...previousState, [name]: value }));
-  }
 
   async function makeUserSignup(event: FormEvent<HTMLFormElement | EventTarget>)
   {
@@ -39,7 +35,7 @@ function UserSignup()
     if (response.status === 200)
     {
       console.log("Cadastro realizado com sucesso!");
-      setFormResponses(emptyFormResponse);
+      resetFormResponse();
     }
     else
     {
