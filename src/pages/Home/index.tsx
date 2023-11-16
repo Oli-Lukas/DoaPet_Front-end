@@ -1,9 +1,22 @@
+import { useNavigate } from "react-router-dom";
 import icon from "../../assets/images/home-page/icon.png";
 
 import "./style.scss";
+import { useEffect } from "react";
 
 function HomePage()
 {
+  const navigator = useNavigate();
+
+  function checkToken()
+  {
+    const token = localStorage.getItem("doapet-user-token");
+    if (!token)
+      navigator("/login");
+  }
+
+  useEffect(checkToken, [navigator]);
+
   return (
     <div className="home-page">
       <nav>
