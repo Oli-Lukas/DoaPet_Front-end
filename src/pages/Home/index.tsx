@@ -1,27 +1,29 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 import icon from "../../assets/images/home-page/icon.png";
 
 import "./style.scss";
-import { useEffect } from "react";
 
 function HomePage()
 {
   const navigator = useNavigate();
+  const localStorageTokenId = import.meta.env.VITE_LOCALSTORAGE_TOKEN_ID as string;
 
   function checkToken()
   {
-    const token = localStorage.getItem("doapet-user-token");
+    const token = localStorage.getItem(localStorageTokenId);
     if (!token)
       navigator("/login");
   }
 
   function userLogout()
   {
-    localStorage.removeItem("doapet-user-token");
+    localStorage.removeItem(localStorageTokenId);
     navigator("/login");
   }
 
-  useEffect(checkToken, [navigator]);
+  useEffect(checkToken, [navigator, localStorageTokenId]);
 
   return (
     <div className="home-page">

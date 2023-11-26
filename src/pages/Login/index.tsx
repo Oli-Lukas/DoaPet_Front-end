@@ -1,8 +1,10 @@
 import { FormEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LoginIcon from "../../assets/images/login-page/login-icon.png";
-import "./style.scss";
+
 import { api } from "../../lib/axios";
+import LoginIcon from "../../assets/images/login-page/login-icon.png";
+
+import "./style.scss";
 
 function Login()
 {
@@ -10,6 +12,7 @@ function Login()
 
   const [login, setLogin]       = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const localStorageTokenId     = import.meta.env.VITE_LOCALSTORAGE_TOKEN_ID as string;
 
   async function makeLogin(event: FormEvent<HTMLFormElement | EventTarget>)
   {
@@ -21,7 +24,7 @@ function Login()
       
       if (response.status === 200)
       {
-        localStorage.setItem("doapet-user-token", response.data.token);
+        localStorage.setItem(localStorageTokenId, response.data.token);
         navigator("/home");
       }
     }
@@ -33,12 +36,12 @@ function Login()
 
   function checkToken()
   {
-    const token = localStorage.getItem("doapet-user-token");
+    const token = localStorage.getItem(localStorageTokenId);
     if (token)
       navigator("/home");
   }
 
-  useEffect(checkToken, [navigator]);
+  useEffect(checkToken, [navigator, localStorageTokenId]);
 
   return (
     <div className="login-page">
