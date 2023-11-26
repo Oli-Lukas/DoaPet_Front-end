@@ -15,16 +15,19 @@ function Login()
   {
     event.preventDefault();
 
-    const response = await api.post("auth/login", { email: login, senha: password });
-
-    if (response.status === 200)
+    try
     {
-      localStorage.setItem("doapet-user-token", response.data.token);
-      navigator("/home");
+      const response = await api.post("auth/login", { email: login, senha: password });
+      
+      if (response.status === 200)
+      {
+        localStorage.setItem("doapet-user-token", response.data.token);
+        navigator("/home");
+      }
     }
-    else
+    catch(error)
     {
-      console.log("Erro ao efetuar autenticação!"); 
+      console.log("Erro ao efetuar autenticação!");
     }
   }
 
