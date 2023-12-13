@@ -27,7 +27,7 @@ div.adoption-offer-section div.adoption-offer-container {
   row-gap: 40px;
 }
 
-div.adoption-offer-section div.adoption-offer-container a.create-adoption-offer {
+div.adoption-offer-section div.adoption-offer-container button.create-adoption-offer {
   width: 100%;
   height: 400px;
 
@@ -41,6 +41,8 @@ div.adoption-offer-section div.adoption-offer-container a.create-adoption-offer 
   justify-content: center;
   align-items: center;
 
+  border: none;
+  cursor: pointer;
   transition: all .3s ease-in;
 
   &:hover {
@@ -53,7 +55,7 @@ div.adoption-offer-section div.adoption-offer-container a.create-adoption-offer 
   { transform: scale(1.3); }
 }
 
-div.adoption-offer-section div.adoption-offer-container a.create-adoption-offer img {
+div.adoption-offer-section div.adoption-offer-container button.create-adoption-offer img {
   width: 100px;
   transition: all .3s ease-in;
 }

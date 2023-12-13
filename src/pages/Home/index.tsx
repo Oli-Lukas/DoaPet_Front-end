@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import Menu from "../../components/Menu";
 import plusSign from "../../assets/images/home-page/plus-sign.png";
 import "./style.scss";
@@ -15,9 +13,9 @@ function HomePage()
 
         <div className="adoption-offer-container">
 
-          <Link to="" className="create-adoption-offer">
+          <button type="button" className="create-adoption-offer">
             <img className="plus-sign" src={plusSign} />
-          </Link>
+          </button>
         </div>
       </div>
     </div>
