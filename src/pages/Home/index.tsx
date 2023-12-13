@@ -10,23 +10,14 @@ function HomePage()
     <div className="home-page">
       <Menu />
 
-      <div className="adoption-offers-section">
+      <div className="adoption-offer-section">
         <h2 className="title">Banco de Adoção</h2>
-      </div>
 
-      <div className="adoptions-body">
-        <div className="adoptions-container">
+        <div className="adoption-offer-container">
 
           <Link to="" className="create-adoption-offer">
             <img className="plus-sign" src={plusSign} />
           </Link>
-
-          <div className="adoption-offer-card"></div>
-          <div className="adoption-offer-card"></div>
-          <div className="adoption-offer-card"></div>
-          <div className="adoption-offer-card"></div>
-          <div className="adoption-offer-card"></div>
-
         </div>
       </div>
     </div>
