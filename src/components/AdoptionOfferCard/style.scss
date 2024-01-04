@@ -50,4 +50,8 @@ div.adoption-offer-card button.card-button {
   font-weight: 500;
   color: map-get($colors, "Clouds");
   cursor: pointer;
+
+  &:hover {
+    background-color: adjust-color(map-get($colors, "Green-Button"), $blackness: 5%);
+  }
 }
