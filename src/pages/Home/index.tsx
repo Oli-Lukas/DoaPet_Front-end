@@ -1,12 +1,14 @@
 import { useState } from 'react';
 
+import { AdoptionOfferResponse } from './types';
+import AdoptionOfferCard from '../../components/AdoptionOfferCard';
 import AdoptionOfferModal from '../../components/AdoptionOfferModal';
 import Menu from "../../components/Menu";
 
 import plusSign from "../../assets/images/home-page/plus-sign.png";
+import cardImage from "../../assets/images/home-page/cao-labrador.png";
+
 import "./style.scss";
-import { AdoptionOfferResponse } from './types';
-import AdoptionOfferCard from '../../components/AdoptionOfferCard';
 
 function HomePage()
 {
@@ -32,7 +34,11 @@ function HomePage()
             <img className="plus-sign" src={plusSign} />
           </button>
 
-          <AdoptionOfferCard />
+          <AdoptionOfferCard
+            cardImage={cardImage}
+            title="Titulo"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam libero odio, auctor sit amet ipsum ut, dictum sodales lorem."
+          />
 
         </div>
 
