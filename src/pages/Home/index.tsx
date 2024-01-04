@@ -5,12 +5,16 @@ import Menu from "../../components/Menu";
 
 import plusSign from "../../assets/images/home-page/plus-sign.png";
 import "./style.scss";
+import { AdoptionOfferResponse } from './types';
+import AdoptionOfferCard from '../../components/AdoptionOfferCard';
 
 function HomePage()
 {
   const [modalOpen, setModalOpen] = useState(false);
   const openModal  = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  const [adoptionOffers, setAdoptionOffers] = useState<AdoptionOfferResponse[]>();
 
   return (
     <div className="home-page">
@@ -27,6 +31,9 @@ function HomePage()
           >
             <img className="plus-sign" src={plusSign} />
           </button>
+
+          <AdoptionOfferCard />
+
         </div>
 
         <AdoptionOfferModal
