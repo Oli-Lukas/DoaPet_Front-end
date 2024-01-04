@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { AdoptionOfferResponse } from './types';
+import Menu from "../../components/Menu";
 import AdoptionOfferCard from '../../components/AdoptionOfferCard';
 import AdoptionOfferModal from '../../components/AdoptionOfferModal';
-import Menu from "../../components/Menu";
+import { api } from '../../lib/axios';
 
-import plusSign from "../../assets/images/home-page/plus-sign.png";
+import plusSign  from "../../assets/images/home-page/plus-sign.png";
 import cardImage from "../../assets/images/home-page/cao-labrador.png";
 
 import "./style.scss";
@@ -16,7 +17,21 @@ function HomePage()
   const openModal  = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
-  const [adoptionOffers, setAdoptionOffers] = useState<AdoptionOfferResponse[]>();
+  const [adoptionOffers, setAdoptionOffers] = useState<AdoptionOfferResponse[]>([]);
+  const localStorageTokenId = import.meta.env.VITE_LOCALSTORAGE_TOKEN_ID as string;
+
+  function updateAdoptionOffers() {
+
+    async function update() {
+      const token = localStorage.getItem(localStorageTokenId);
+      const response = await api.get<AdoptionOfferResponse[]>("/oferta-adocao/", { headers: { Authorization: `Bearer ${token}` } });
+      if (response.status === 200) setAdoptionOffers(response.data);
+    }
+
+    update();
+  }
+
+  useEffect(updateAdoptionOffers, [modalOpen, localStorageTokenId]);
 
   return (
     <div className="home-page">
@@ -34,11 +49,7 @@ function HomePage()
             <img className="plus-sign" src={plusSign} />
           </button>
 
-          <AdoptionOfferCard
-            cardImage={cardImage}
-            title="Titulo"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam libero odio, auctor sit amet ipsum ut, dictum sodales lorem."
-          />
+          { adoptionOffers.map(adoptionOffer => <AdoptionOfferCard cardImage={cardImage} title={adoptionOffer.ofertaAdocao.titulo} description={adoptionOffer.ofertaAdocao.descricao} />) }
 
         </div>
 
