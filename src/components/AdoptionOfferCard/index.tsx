@@ -1,5 +1,3 @@
-// import cardImage from "../../assets/images/home-page/cao-labrador.png";
-
 import "./style.scss";
 
 interface AdoptionOfferCardProps
@@ -13,7 +11,11 @@ function AdoptionOfferCard(props: AdoptionOfferCardProps)
 {
   function makeShortDescription(description: string) {
     const charactersLimit = 150;
-    return description.slice(0, charactersLimit) + "...";
+
+    if (description.length > charactersLimit)
+      return description.slice(0, charactersLimit) + "...";
+    else
+      return description;
   }
 
   const { cardImage, title, description } = props;
