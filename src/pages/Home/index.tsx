@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import { AdoptionOfferResponse } from './types';
 import Menu from "../../components/Menu";
+import Footer from '../../components/Footer';
+
+import { AdoptionOfferResponse } from './types';
 import AdoptionOfferCard from '../../components/AdoptionOfferCard';
 import AdoptionOfferModal from '../../components/AdoptionOfferModal';
 import { api } from '../../lib/axios';
@@ -10,7 +12,6 @@ import plusSign  from "../../assets/images/home-page/plus-sign.png";
 import cardImage from "../../assets/images/home-page/cao-labrador.png";
 
 import "./style.scss";
-import Footer from '../../components/Footer';
 
 function HomePage()
 {
@@ -36,9 +37,9 @@ function HomePage()
 
   return (
     <>
+      <Menu />
+      
       <div className="home-page">
-        <Menu />
-
         <div className="adoption-offer-section">
           <h2 className="title">Banco de Adoção</h2>
 
