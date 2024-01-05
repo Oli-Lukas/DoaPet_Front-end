@@ -2,10 +2,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Login from "./pages/Login";
 import HomePage from "./pages/Home";
-
-import "./App.scss";
 import UserSignup from "./pages/UserSignup";
 import OngSignup from "./pages/OngSignup";
+import OfertaAdocaoPage from "./pages/OfertaAdocao";
+
+import "./App.scss";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/home",
     element: <HomePage />
+  },
+  {
+    path: "/adoption-offer/:id",
+    element: <OfertaAdocaoPage />
   }
 ]);
 
