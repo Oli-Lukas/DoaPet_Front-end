@@ -43,14 +43,20 @@ div.adoption-offer-card p.card-description
   font-family: "Bitter", serif;
 }
 
-div.adoption-offer-card button.card-button
+div.adoption-offer-card a.card-button
 {
   width: 280px;
   height: 50px;
 
-  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+
   font-family: "Roboto Slab", serif;
   font-weight: 500;
   color: map-get($colors, "Clouds");
+  
+  border: none;
   cursor: pointer;
 }

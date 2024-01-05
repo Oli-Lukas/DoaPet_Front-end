@@ -52,7 +52,7 @@ function HomePage()
               <img className="plus-sign" src={plusSign} />
             </button>
 
-            { adoptionOffers.map(adoptionOffer => <AdoptionOfferCard cardImage={cardImage} title={adoptionOffer.ofertaAdocao.titulo} description={adoptionOffer.ofertaAdocao.descricao} />) }
+            { adoptionOffers.map(adoptionOffer => <AdoptionOfferCard id={adoptionOffer.ofertaAdocao.id} cardImage={cardImage} title={adoptionOffer.ofertaAdocao.titulo} description={adoptionOffer.ofertaAdocao.descricao} />) }
 
           </div>
 
