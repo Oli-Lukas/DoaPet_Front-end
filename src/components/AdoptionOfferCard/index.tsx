@@ -1,4 +1,6 @@
+import { CSSProperties, useRef, useState } from "react";
 import "./style.scss";
+import { generateRandomStyle, randomCardStyleType } from "./util";
 
 interface AdoptionOfferCardProps
 {
@@ -20,13 +22,26 @@ function AdoptionOfferCard(props: AdoptionOfferCardProps)
 
   const { cardImage, title, description } = props;
   const shortDescription = makeShortDescription(description);
+  // const [cardStyle, buttonStyle, buttonStyleHovered] = generateRandomStyle();
+  const styleRef = useRef<CSSProperties[]>(generateRandomStyle(randomCardStyleType()));
+  const [buttonHovered, setButtonHovered] = useState<boolean>(false);
 
   return (
-    <div className="adoption-offer-card">
+    <div
+      className="adoption-offer-card"
+      style={styleRef.current[0]}
+    >
       <img className="card-image" src={cardImage} />
       <h3 className="card-title" >{title}</h3>
       <p className="card-description">{shortDescription}</p>
-      <button className="card-button" >Ver</button>
+      <button
+        className="card-button"
+        style={(buttonHovered) ? styleRef.current[2] : styleRef.current[1]}
+        onMouseEnter={() => setButtonHovered(true)}
+        onMouseLeave={() => setButtonHovered(false)}
+      >
+        Ver
+      </button>
     </div>
   );
 }
