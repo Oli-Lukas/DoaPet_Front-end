@@ -10,6 +10,7 @@ import plusSign  from "../../assets/images/home-page/plus-sign.png";
 import cardImage from "../../assets/images/home-page/cao-labrador.png";
 
 import "./style.scss";
+import Footer from '../../components/Footer';
 
 function HomePage()
 {
@@ -34,31 +35,35 @@ function HomePage()
   useEffect(updateAdoptionOffers, [modalOpen, localStorageTokenId]);
 
   return (
-    <div className="home-page">
-      <Menu />
+    <>
+      <div className="home-page">
+        <Menu />
 
-      <div className="adoption-offer-section">
-        <h2 className="title">Banco de Adoção</h2>
+        <div className="adoption-offer-section">
+          <h2 className="title">Banco de Adoção</h2>
 
-        <div className="adoption-offer-container">
-          <button
-            type="button"
-            className="create-adoption-offer"
-            onClick={openModal}
-          >
-            <img className="plus-sign" src={plusSign} />
-          </button>
+          <div className="adoption-offer-container">
+            <button
+              type="button"
+              className="create-adoption-offer"
+              onClick={openModal}
+            >
+              <img className="plus-sign" src={plusSign} />
+            </button>
 
-          { adoptionOffers.map(adoptionOffer => <AdoptionOfferCard cardImage={cardImage} title={adoptionOffer.ofertaAdocao.titulo} description={adoptionOffer.ofertaAdocao.descricao} />) }
+            { adoptionOffers.map(adoptionOffer => <AdoptionOfferCard cardImage={cardImage} title={adoptionOffer.ofertaAdocao.titulo} description={adoptionOffer.ofertaAdocao.descricao} />) }
 
+          </div>
+
+          <AdoptionOfferModal
+            isOpen={modalOpen}
+            closeModal={closeModal}
+          />
         </div>
-
-        <AdoptionOfferModal
-          isOpen={modalOpen}
-          closeModal={closeModal}
-        />
       </div>
-    </div>
+
+      <Footer />
+    </>
   );
 }
 
