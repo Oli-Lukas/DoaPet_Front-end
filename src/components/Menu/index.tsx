@@ -32,6 +32,7 @@ function Menu()
 
       <ul className="menu-list">
         <li><button className="" type="button">Solicitações de Adoção</button></li>
+        <li><button className="" type="button">Eventos</button></li>
         <li><button className="" type="button">ONGs</button></li>
         <li><button className="active" type="button">Banco de Adoção</button></li>
         <li><button className="" type="button">Minha Conta</button></li>
