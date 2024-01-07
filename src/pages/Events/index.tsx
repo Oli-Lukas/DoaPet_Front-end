@@ -8,6 +8,7 @@ import { EventResponse, emptyUserResponse, UserResponse } from "./types";
 import plusSign from "../../assets/images/events-page/plus-sign.png";
 
 import "./style.scss";
+import EventModal from "../../components/EventModal";
 
 function EventsPage()
 {
@@ -52,6 +53,8 @@ function EventsPage()
             {renderAddEventButton()}
 
           </div>
+
+          <EventModal isOpen={modalOpen} closeModal={closeModal} />
         </div>
       </div>
 
