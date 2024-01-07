@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import icon from "../../assets/images/home-page/icon.png";
 import "./style.scss";
@@ -31,12 +31,11 @@ function Menu()
       </a>
 
       <ul className="menu-list">
-        <li><button className="" type="button">Solicitações de Adoção</button></li>
-        <li><button className="" type="button">Eventos</button></li>
-        <li><button className="" type="button">ONGs</button></li>
-        <li><button className="active" type="button">Banco de Adoção</button></li>
-        <li><button className="" type="button">Minha Conta</button></li>
-        <li><button className="" type="button" onClick={userLogout}>Sair</button></li>
+        <li><Link to="/events" className="" type="button">Eventos</Link></li>
+        <li><Link to="/ongs" className="" type="button">ONGs</Link></li>
+        <li><Link to="/home" className="active" type="button">Banco de Adoção</Link></li>
+        <li><Link to="/user-account" className="" type="button">Minha Conta</Link></li>
+        <li><button type="button" onClick={userLogout}>Sair</button></li>
       </ul>
     </nav>
   );
