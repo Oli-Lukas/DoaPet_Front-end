@@ -1,2 +1,69 @@
+@use "../../sass/colors.scss" as *;
+
 div.events-page
 {}
+
+div.events-section
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 1.5rem 0;
+  row-gap: 1.5rem;
+}
+
+div.events-section h2.title
+{
+  text-align: center;
+  font-family: "Kameron", serif;
+  font-weight: bold;
+}
+
+div.events-section div.events-container
+{
+  width: 80%;
+  max-width: 1200px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 350px);
+  justify-content: center;
+  column-gap: 65px;
+  row-gap: 40px;
+}
+
+div.events-section div.events-container button.create-event
+{
+  width: 100%;
+  height: 400px;
+
+  background-color: rgba(map-get($colors, "Dark-Periwinkle"), 55%);
+  border-radius: 6px;
+  box-shadow:
+     4px  4px 15px rgba(0, 0, 0, 25%),
+    -4px -4px 15px rgba(0, 0, 0, 25%);
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+  cursor: pointer;
+  transition: all .3s ease-in;
+
+  &:hover
+  {
+    box-shadow:
+       4px  4px 15px rgba(0, 0, 0, 45%),
+      -4px -4px 15px rgba(0, 0, 0, 25%);
+  }
+
+  &:hover img.plus-sign
+  { transform: scale(1.3); }
+}
+
+div.events-section div.events-container button.create-event img
+{
+  width: 100px;
+  transition: all .3s ease-in;
+}
