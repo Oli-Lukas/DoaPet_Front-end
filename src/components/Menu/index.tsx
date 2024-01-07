@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 import icon from "../../assets/images/home-page/icon.png";
 import "./style.scss";
@@ -7,7 +7,37 @@ import "./style.scss";
 function Menu()
 {
   const navigator = useNavigate();
+  const location = useLocation();
   const localStorageTokenId = import.meta.env.VITE_LOCALSTORAGE_TOKEN_ID as string;
+
+  const links = [
+    <Link to="/events" className="menu-item-link" type="button">Eventos</Link>,
+    <Link to="/ongs" className="menu-item-link" type="button">ONGs</Link>,
+    <Link to="/home" className="menu-item-link active" type="button">Banco de Adoção</Link>,
+    <Link to="/user-account" className="menu-item-link" type="button">Minha Conta</Link>
+  ];
+
+  function updateLinks()
+  {
+    function deactiveAllLinks(links: NodeListOf<Element>): void
+    {
+      links.forEach(link => link.classList.remove("active"));
+    }
+
+    function activeCurrentLink(links: NodeListOf<Element>): void
+    {
+      links.forEach(link => {
+        if (link.getAttribute("href") === location.pathname)
+          link.classList.add("active");
+      });
+    }
+
+    const menuLinks = document.querySelectorAll("a.menu-item-link");
+    deactiveAllLinks(menuLinks);
+    activeCurrentLink(menuLinks);
+  }
+
+  useEffect(updateLinks, [location]);
 
   function userLogout()
   {
@@ -31,10 +61,7 @@ function Menu()
       </a>
 
       <ul className="menu-list">
-        <li><Link to="/events" className="" type="button">Eventos</Link></li>
-        <li><Link to="/ongs" className="" type="button">ONGs</Link></li>
-        <li><Link to="/home" className="active" type="button">Banco de Adoção</Link></li>
-        <li><Link to="/user-account" className="" type="button">Minha Conta</Link></li>
+        {links.map(link => <li>{link}</li>)}
         <li><button type="button" onClick={userLogout}>Sair</button></li>
       </ul>
     </nav>
