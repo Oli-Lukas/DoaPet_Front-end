@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import Menu   from "../../components/Menu";
 import Footer from "../../components/Footer";
 
+import { api } from "../../lib/axios";
 import { AdoptionOfferResponse, emptyOfertaAdocao } from "./types";
 import adoptionImage from "../../assets/images/adoption-offer/cao-labrador.png";
 
 import "./style.scss";
-import { api } from "../../lib/axios";
 
 function OfertaAdocaoPage()
 {
   const { id } = useParams();
+  const navigator = useNavigate();
   const [adoptionOffer, setAdoptionOffer] = useState<AdoptionOfferResponse>(emptyOfertaAdocao)
   const localStorageTokenId = import.meta.env.VITE_LOCALSTORAGE_TOKEN_ID as string;
 
@@ -29,6 +30,19 @@ function OfertaAdocaoPage()
   }
 
   useEffect(loadOfertaAdocao, [id, localStorageTokenId]);
+
+  function makeAdoptionRequest()
+  {
+    async function makeRequest()
+    {
+      const token = localStorage.getItem(localStorageTokenId);
+      const response = await api.post(`solicitacao-adocao/${id}`, null, { headers: { Authorization: `Bearer ${token}` } });
+      if (response.status === 201)
+        navigator("/home");
+    }
+
+    makeRequest();
+  }
 
   return (
     <>
@@ -51,7 +65,12 @@ function OfertaAdocaoPage()
           <p><span className="highlight">Nome do Animal</span>: {adoptionOffer.ofertaAdocao.titulo}</p>
           <p><span className="highlight">Descricao do Animal</span>: {adoptionOffer.ofertaAdocao.descricao}</p>
 
-          <button className="request-adoption" >Solicitar Adoção</button>
+          <button
+            className="request-adoption"
+            onClick={makeAdoptionRequest}
+          >
+            Solicitar Adoção
+          </button>
         </div>
       </div>
 
