@@ -1,5 +1,6 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import HomePage from "./pages/Home";
 import UserSignup from "./pages/UserSignup";
@@ -11,21 +12,53 @@ import UserAccountPage from "./pages/UserAccount";
 
 import "./App.scss";
 
-const router = createBrowserRouter([
-  { path: "/"                  , element: <Login />            },
-  { path: "/login"             , element: <Login />            },
-  { path: "/user-signup"       , element: <UserSignup />       },
-  { path: "/ong-signup"        , element: <OngSignup />        },
-  { path: "/home"              , element: <HomePage />         },
-  { path: "/adoption-offer/:id", element: <OfertaAdocaoPage /> },
-  { path: "/events"            , element: <EventsPage />       },
-  { path: "/ongs"              , element: <OngsPage />         },
-  { path: "/user-account"      , element: <UserAccountPage />  }
-]);
-
 function App() {
   return (
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <Routes>
+
+        <Route element={<Layout />} >
+          <Route
+            path="/home"
+            element={<HomePage />}
+          />
+          <Route
+            path="/adoption-offer/:id"
+            element={<OfertaAdocaoPage />}
+          />
+          <Route
+            path="/events"
+            element={<EventsPage />}
+          />
+          <Route
+            path="/ongs"
+            element={<OngsPage />}
+          />
+          <Route
+            path="/user-account"
+            element={<UserAccountPage />}
+          />
+        </Route>
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+        <Route
+          path="/"
+          element={<Login />}
+        />
+        <Route
+          path="/user-signup"
+          element={<UserSignup />}
+        />
+        <Route
+          path="/ong-signup"
+          element={<OngSignup />}
+        />
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 

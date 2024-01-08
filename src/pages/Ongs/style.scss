@@ -1,2 +1,12 @@
 div.ongs-page
-{}
+{
+  flex: 1;
+  padding: 1.5rem 0;
+}
+
+div.ongs-page h2.title
+{
+  text-align: center;
+  font-family: "Kameron", serif;
+  font-weight: bold;
+}

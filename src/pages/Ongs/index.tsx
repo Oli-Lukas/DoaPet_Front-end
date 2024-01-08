@@ -1,18 +1,11 @@
-import Footer from "../../components/Footer";
-import Menu from "../../components/Menu";
 import "./style.scss";
 
 function OngsPage()
 {
   return (
-    <>
-      <Menu />
-
-      <div className="ongs-page">
-      </div>
-
-      <Footer />
-    </>
+    <div className="ongs-page">
+      <h2 className="title">ONGs</h2>
+    </div>
   );
 }
 

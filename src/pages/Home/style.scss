@@ -1,5 +1,8 @@
 @use "../../sass/colors.scss" as *;
 
+div.home-page
+{ flex: 1; }
+
 div.adoption-offer-section {
   display: flex;
   flex-direction: column;

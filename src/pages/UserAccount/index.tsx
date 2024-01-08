@@ -1,18 +1,11 @@
-import Footer from "../../components/Footer";
-import Menu from "../../components/Menu";
 import "./style.scss";
 
 function UserAccountPage()
 {
   return (
-    <>
-      <Menu />
-
-      <div className="user-account-page">        
-      </div>
-
-      <Footer />
-    </>
+    <div className="user-account-page">
+      <h2 className="title">Minha Conta</h2>
+    </div>
   );
 }
 
