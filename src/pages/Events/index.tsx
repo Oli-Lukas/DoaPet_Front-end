@@ -6,9 +6,11 @@ import Menu from "../../components/Menu";
 import { api } from "../../lib/axios";
 import { EventResponse, emptyUserResponse, UserResponse } from "./types";
 import plusSign from "../../assets/images/events-page/plus-sign.png";
+import eventImage from "../../assets/images/events-page/calendario.png";
 
-import "./style.scss";
 import EventModal from "../../components/EventModal";
+import EventCard from "../../components/EventCard";
+import "./style.scss";
 
 function EventsPage()
 {
@@ -34,6 +36,20 @@ function EventsPage()
 
   useEffect(loadCurrentUserData, [localStorageTokenId]);
 
+  function loadEvents()
+  {
+    async function load()
+    {
+      const token = localStorage.getItem(localStorageTokenId);
+      const response = await api.get<EventResponse[]>("/evento/", { headers: { Authorization: `Bearer ${token}` } });
+      if (response.status === 200) setEvents(response.data);
+    }
+
+    load();
+  }
+
+  useEffect(loadEvents, [localStorageTokenId]);
+
   function renderAddEventButton(): JSX.Element | undefined
   {
     return (currentUser.tipoUsuario === "ONG") ?
@@ -51,6 +67,7 @@ function EventsPage()
           <div className="events-container">
 
             {renderAddEventButton()}
+            {events.map(event => <EventCard id={event.evento.id} title={event.evento.nomeDoEvento} description={event.evento.descricao} cardImage={eventImage} datetime={event.evento.dataDoEvento} />)}
 
           </div>
 
