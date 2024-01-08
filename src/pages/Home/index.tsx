@@ -9,7 +9,6 @@ import AdoptionOfferModal from '../../components/AdoptionOfferModal';
 import { api } from '../../lib/axios';
 
 import plusSign  from "../../assets/images/home-page/plus-sign.png";
-import cardImage from "../../assets/images/home-page/cao-labrador.png";
 
 import "./style.scss";
 
@@ -52,14 +51,10 @@ function HomePage()
               <img className="plus-sign" src={plusSign} />
             </button>
 
-            { adoptionOffers.map(adoptionOffer => <AdoptionOfferCard id={adoptionOffer.ofertaAdocao.id} cardImage={cardImage} title={adoptionOffer.ofertaAdocao.titulo} description={adoptionOffer.ofertaAdocao.descricao} />) }
-
+            { adoptionOffers.map(adoptionOffer => <AdoptionOfferCard id={adoptionOffer.ofertaAdocao.id} cardImage={adoptionOffer.ofertaAdocao.foto} title={adoptionOffer.ofertaAdocao.titulo} description={adoptionOffer.ofertaAdocao.descricao} />) }
           </div>
-
-          <AdoptionOfferModal
-            isOpen={modalOpen}
-            closeModal={closeModal}
-          />
+          
+          <AdoptionOfferModal isOpen={modalOpen} closeModal={closeModal} />
         </div>
       </div>
 

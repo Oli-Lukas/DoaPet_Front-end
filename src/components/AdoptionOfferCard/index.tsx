@@ -14,6 +14,11 @@ interface AdoptionOfferCardProps
 
 function AdoptionOfferCard(props: AdoptionOfferCardProps)
 {
+  const { id, cardImage, title, description } = props;
+  const shortDescription = makeShortDescription(description);
+  const styleRef = useRef<CSSProperties[]>(generateRandomStyle(randomCardStyleType()));
+  const [buttonHovered, setButtonHovered] = useState<boolean>(false);
+
   function makeShortDescription(description: string) {
     const charactersLimit = 150;
 
@@ -23,17 +28,12 @@ function AdoptionOfferCard(props: AdoptionOfferCardProps)
       return description;
   }
 
-  const { id, cardImage, title, description } = props;
-  const shortDescription = makeShortDescription(description);
-  const styleRef = useRef<CSSProperties[]>(generateRandomStyle(randomCardStyleType()));
-  const [buttonHovered, setButtonHovered] = useState<boolean>(false);
-
   return (
     <div
       className="adoption-offer-card"
       style={styleRef.current[0]}
     >
-      <img className="card-image" src={cardImage} />
+      <img className="card-image" src={`data:image/png;base64,${cardImage}`} alt="Imagem" />
       <h3 className="card-title" >{title}</h3>
       <p className="card-description">{shortDescription}</p>
       <Link
