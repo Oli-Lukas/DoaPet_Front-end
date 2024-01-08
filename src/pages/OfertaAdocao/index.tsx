@@ -50,7 +50,7 @@ function OfertaAdocaoPage()
 
       <div className="adoption-offer-page">
         <div className="image-container">
-          <img src={adoptionImage} />
+          <img src={`data:image/png;base64,${adoptionOffer.ofertaAdocao.foto}`} alt="Imagem" />
         </div>
 
         <div className="content-container">
