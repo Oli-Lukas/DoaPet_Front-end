@@ -5,6 +5,7 @@ export type AdoptionOfferResponse = {
     titulo: string;
     descricao: string;
     localizacao: string;
+	foto: string;
   },
   anunciante: {
     id: number;
